@@ -5,7 +5,8 @@ module "public_label" {
 
   tags = merge(
     module.label.tags,
-    map(var.subnet_type_tag_key, format(var.subnet_type_tag_value_format, "public"))
+    map(var.subnet_type_tag_key, format(var.subnet_type_tag_value_format, "public")),
+    {"kubernetes.io/role/elb" = "1"}
   )
 }
 
@@ -98,4 +99,3 @@ resource "aws_network_acl" "public" {
 
   tags = module.public_label.tags
 }
-

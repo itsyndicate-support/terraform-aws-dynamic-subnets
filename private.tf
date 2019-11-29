@@ -5,7 +5,8 @@ module "private_label" {
 
   tags = merge(
     module.label.tags,
-    map(var.subnet_type_tag_key, format(var.subnet_type_tag_value_format, "private"))
+    map(var.subnet_type_tag_key, format(var.subnet_type_tag_value_format, "private")),
+    {"kubernetes.io/role/internal-elb" = "1"}
   )
 }
 
@@ -99,4 +100,3 @@ resource "aws_network_acl" "private" {
 
   tags = module.private_label.tags
 }
-
